@@ -1,0 +1,25 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass{memoir}
+\usepackage[a4paper, margin=0.9cm]{geometry}
+\geometry{a4paper}
+
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[export]{adjustbox}
+\usepackage{anyfontsize}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\newfontfamily\cardtitle{Beleren}
+\newfontfamily\cardartist{Beleren Small Caps}
+
+
+\begin{document}
+        {\fontsize{64pt}{54pt}\cardtitle{Revised}}
+        \hspace{2cm}
+        {\includegraphics[scale=.2]{dest/sets/3ed}}
+\end{document}
