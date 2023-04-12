@@ -11,7 +11,7 @@ class DB_Connector:
         def get_cards_in_set(self, card_set: str):
             statement = "SELECT name, artist, type as cardType, " \
                         "FormatColors(colorIdentity) as colorName, " \
-                        "IsFoil(finishes) as isFoil, colors, isAlternative, " \
+                        "IsFoil(finishes) as isFoil, colors, isAlternative, rarity," \
                         "frameEffects " \
                         "FROM cards WHERE setCode = %s AND isPromo = FALSE " \
                         "ORDER BY colors, colorName, cardType, name, artist, frameEffects, isFoil;"

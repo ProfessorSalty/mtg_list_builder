@@ -1,0 +1,70 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass{memoir}
+\usepackage[a4paper]{geometry}
+\geometry{top=4cm,bottom=2cm,left=2cm,right=2cm}
+
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{adjustbox}
+\usepackage{newtxtext,newtxmath}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+\pagenumbering{gobble}
+
+\setlength{\voffset}{-0.75in}
+\setlength{\headsep}{5pt}
+\setlength{\columnsep}{18pt} % Set the space between columns
+\setlength{\tabcolsep}{12pt}
+
+\font\beleren[fonts/beleren-bold_P1.01.ttf] at 16pt
+\font\belerensmallcaps=[fonts/belerensmallcaps-bold.ttf] at 20pt
+\font\guildtext=[fonts/belerensmallcaps-bold.ttf] at 12pt
+\font\datefont=[fonts/MatrixBold.ttf] at 14pt
+\font\cardcount=[fonts/MatrixBold.ttf] at 14pt
+
+\newcommand{\graphicheight}{0.6cm}
+\newcommand{\manaicon}[1]{\hspace{-0.45cm}\adjincludegraphics[height=\graphicheight,valign=M]{dest/#1}}
+\newcommand{\iconrow}[3][\vspace{0}]{\manaicon{#2} & \adjustbox{valign=M}{\belerensmallcaps{#3}} \\}
+\newcommand{\rarityrow}[2]{\beleren{#1} & \beleren{#2} \\}
+
+\setlength{\columnsep}{0cm}
+
+\begin{document}
+    \renewcommand{\arraystretch}{2}
+    \centering\includegraphics[width = \textwidth]{dest/one}
+    \begin{center}
+        \centering\makebox[\textwidth]{\datefont{237 cards}\hspace{12pt}\datefont{April 4th, 1994}}
+        \begin{minipage}{0.95\textwidth}
+            \vspace{1cm}
+            \begin{multicols*}{3}
+                    \begin{tabularx}{0.8\linewidth}{m{2cm} m{1cm}}
+                        \iconrow{b}{237}
+                        \iconrow{u}{237}
+                        \iconrow{g}{237}
+                        \iconrow{r}{237}
+                        \iconrow{w}{237}
+                        \iconrow{c}{237}
+                    \end{tabularx}
+                \vfill
+                \columnbreak[4]
+                \begin{tabularx}{\linewidth}{m{2cm} r }
+                    \iconrow[grixis]{grixis}{237}
+                \end{tabularx}
+                \vfill
+                \columnbreak[4]
+                \begin{tabularx}{\linewidth}{m{3cm} X }
+                    \rarityrow{Common}{100}
+                    \rarityrow{Uncommon}{100}
+                    \rarityrow{Rare}{100}
+                    \rarityrow{Mythic-Rare}{100}
+                    \rarityrow{Land}{100}
+                \end{tabularx}
+            \end{multicols*}
+        \end{minipage}
+    \end{center}
+\end{document}

@@ -1,6 +1,6 @@
 mysql/data
-mysql/db_files
-out/
-dest/
-icons/
-fonts/
+mysql/db_files/dump.sql
+resources/images/dest/
+resources/icons/
+resources/fonts/
+.env

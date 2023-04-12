@@ -52,21 +52,3 @@ BEGIN
 	RETURN color;
 END$$
 
-DELIMITER ;
-
-SELECT
-name,
-artist,
-type as cardType,
-FormatColors(colorIdentity) as colorName,
-IsFoil(finishes) as isFoil,
-colors,
-isAlternative,
-frameEffects
-FROM cards
-WHERE setCode = 'ONE' AND isPromo = FALSE
-ORDER BY colors, colorName, cardType, name, artist, frameEffects, isFoil;
-
-SELECT name, code, keyruneCode, baseSetSize, type, releaseDate FROM sets WHERE code = 'ONE';
-
-
