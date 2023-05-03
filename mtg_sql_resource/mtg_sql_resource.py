@@ -1,55 +1,5 @@
-import datetime
-from typing import List
-
+from mtg_sql_resource import Set, Card
 from mtg_sql_resource.db_connector import DB_Connector
-
-
-class Card:
-    name: str
-    artist: str
-    card_type: str
-    rarity: str
-    color_name: str
-    colors: str
-    is_foil: bool
-    is_alternative: bool
-    frame_effects: str
-
-    def __init__(self, card_data):
-        self.name = card_data['name']
-        self.artist = card_data['artist']
-        self.card_type = card_data['cardType']
-        self.color_name = card_data['colorName']
-        if card_data['colors'] is not None:
-            self.colors = card_data['colors'].split(',')
-        else:
-            self.colors = None
-        self.is_foil = card_data['isFoil'] == 1
-        self.is_alternative = card_data['isAlternative'] == 1
-
-        if card_data['frameEffects'] is not None:
-            self.frame_effects = card_data['frameEffects'].split(',')
-        else:
-            self.frame_effects = None
-        self.rarity = card_data['rarity']
-
-
-class Set:
-    name: str
-    keyrune_code: str
-    code: str
-    base_set_size: int
-    type: str
-    release_date: datetime.date
-    cards: List[Card]
-
-    def __init__(self, set_data):
-        self.name = set_data['name']
-        self.keyrune_code = set_data['keyruneCode']
-        self.code = set_data['code']
-        self.base_set_size = set_data['baseSetSize']
-        self.type = set_data['type']
-        self.release_date = set_data['releaseDate']
 
 
 class MTGSQLResource:

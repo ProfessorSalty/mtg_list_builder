@@ -1,5 +1,7 @@
 from pymysql import Connection, cursors
 
+from mtg_sql_resource import CardRarity
+
 
 class DB_Connector:
     class CardConnection:
@@ -21,6 +23,15 @@ class DB_Connector:
             statement = "SELECT name, code, keyruneCode, baseSetSize, type, releaseDate " \
                         "FROM sets WHERE code = %s";
             return self.__execute_query(statement, set_id)[0]
+
+        def get_set_cards_by_rarity(self, card_set: str, desired_rarity: CardRarity):
+            statement = "SELECT name, artist, type as cardType, " \
+                        "FormatColors(colorIdentity) as colorName, " \
+                        "IsFoil(finishes) as isFoil, colors, isAlternative, rarity," \
+                        "frameEffects " \
+                        "FROM cards WHERE setCode = %s AND rarity = %s AND isPromo = FALSE " \
+                        "ORDER BY colors, colorName, cardType, name, artist, frameEffects, isFoil;"
+            return self.__execute_query(statement, card_set, desired_rarity)
 
         def close(self):
             self.__db_connection.close()

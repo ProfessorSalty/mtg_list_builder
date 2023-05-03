@@ -1,0 +1,1 @@
+from .tcg_bulk_list_generator import TcgBulkListGenerator

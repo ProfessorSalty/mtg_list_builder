@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
+
 import os
 import subprocess
-
 from dotenv import load_dotenv
 import shutil
 import sys
-
+import json
 import pandas as pd
-
 from jinja2 import Environment, FileSystemLoader
-
 from image_resource import ImageBuilder
+from models import ColorDataResource
 from mtg_sql_resource import MTGSQLResource
+
 
 load_dotenv()
 
-base_color_names = ['Black', 'Blue', 'Green', 'Red', 'White']
-base_colors = ['b', 'c', 'g', 'r', 'u', 'w']
-comment_string = '@@'
-variable_string = '^^'
 
 if __name__ == "__main__":
     def create_path(*args):
@@ -31,15 +27,31 @@ if __name__ == "__main__":
     mana_src = create_path(resources_dir, os.environ.get('MANA_ICONS_DIR', 'mana-master/svg'))
     keyrune_src = create_path(resources_dir, os.environ.get('KEYRUNE_ICONS_DIR', 'keyrune-master/svg'))
     font_dir = create_path(resources_dir, os.environ.get('FONT_DIR', 'fonts'))
+    data_dir = create_path(resources_dir, os.environ.get('DATA_DIR', 'data'))
+    colors_file = data_dir + '/' + os.environ.get('COLORS_FILE', 'colors.json')
     generated_images_dir = create_path(resources_dir, os.environ.get('GENERATED_IMAGES_DIR', 'images'))
     tmp_dir = create_path(resources_dir, os.environ.get('TMP', 'tmp'))
     set_info_template_name = os.environ.get('SET_INFO_TEMPLATE_NAME', 'set_info.tex.j2')
     latex_command = os.environ.get('LATEX_COMMAND', 'lualatex')
     mysql_user = os.environ.get('MYSQL_USER')
     mysql_password = os.environ.get('MYSQL_PASSWORD')
+    comment_string = os.environ.get('COMMENT_STRING', '@@')
+    variable_string = os.environ.get('VARIABLE_STRING', '^^')
 
     if mysql_user is None or mysql_password is None:
         raise ValueError('mysql user and password are required')
+
+    if not os.path.exists(data_dir):
+        raise ValueError('data directory must exist and not be empty')
+
+    if not os.path.exists(colors_file):
+        raise ValueError('colors file must exist')
+
+    if not os.path.splitext(colors_file) == '.json':
+        raise ValueError('colors file must be in json')
+
+    with open(colors_file, 'r') as colors_file_read:
+        color_data = ColorDataResource(json.load(colors_file_read))
 
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
@@ -47,52 +59,20 @@ if __name__ == "__main__":
     if os.path.exists(tmp_dir):
         shutil.rmtree(tmp_dir)
 
-    required_dirs = [output_dir, tmp_dir, resources_dir, templates_dir, mana_src, keyrune_src, font_dir, generated_images_dir, tmp_dir, set_info_template_name]
-    for dir in required_dirs:
-        if not os.path.exists(dir):
-            os.makedirs(dir)
+    required_dirs = [output_dir, tmp_dir, resources_dir, templates_dir, mana_src, keyrune_src, font_dir,
+                     generated_images_dir, tmp_dir, set_info_template_name]
 
+    for required_dir in required_dirs:
+        if not os.path.exists(required_dir):
+            os.makedirs(required_dir)
 
     image_resource = ImageBuilder(resource_dir=resources_dir, mana_dir=mana_src, keyrune_dir=keyrune_src,
                                   images_dir=generated_images_dir, font_dir=font_dir)
 
-    for color in base_colors:
+    for color in color_data.base_colors:
         image_resource.create_mana_icon(color)
 
-    combos = [
-        ('b', 'Black'),
-        ('u', 'Blue'),
-        ('r', 'Red'),
-        ('g', 'Green'),
-        ('w', 'White'),
-        ('b,g', 'Golgari'),
-        ('r,u', 'Izzet'),
-        ('b,r', 'Rekdos'),
-        ('b,u', 'Dimir'),
-        ('b,w', 'Orzhsov'),
-        ('g,r', 'Gruul'),
-        ('g,u', 'Simic'),
-        ('g,w', 'Selesnya'),
-        ('r,w', 'Boros'),
-        ('u,w', 'Zorius'),
-        ('b,g,w', 'Abzan'),
-        ('g,u,w', 'Bant'),
-        ('b,u,w', 'Esper'),
-        ('b,r,u', 'Grixis'),
-        ('r,u,w', 'Jeskai'),
-        ('b,g,r', 'Jund'),
-        ('b,r,w', 'Mardu'),
-        ('g,r,w', 'Naya'),
-        ('b,g,u', 'Sultai'),
-        ('g,r,u', 'Temur'),
-        ('b,g,r,u', 'Glint'),
-        ('b,g,w,r', 'Dune'),
-        ('g,u,w,r', 'Ink'),
-        ('b,r,u,w', 'Yore'),
-        ('b,g,u,w', 'Witch'),
-    ]
-
-    for (combo_colors, name) in combos:
+    for (combo_colors, name) in color_data.combos:
         image_resource.create_multi_color_mana_icons(name, combo_colors.lower().split(','))
 
     db = MTGSQLResource.instantiate(mysql_user, mysql_password)
@@ -114,8 +94,8 @@ if __name__ == "__main__":
         df = pd.DataFrame(current_set.cards)
         rarity_totals = df.groupby("rarity").size().reset_index(name="count").values
         all_color_totals = df.groupby("color_name").size().reset_index(name="count")
-        color_totals = all_color_totals[all_color_totals['color_name'].isin(base_color_names)].values
-        multi_color_totals = all_color_totals[~all_color_totals['color_name'].isin(base_color_names)].values
+        color_totals = all_color_totals[all_color_totals['color_name'].isin(color_data.base_color_names)].values
+        multi_color_totals = all_color_totals[~all_color_totals['color_name'].isin(color_data.base_color_names)].values
         release_date = current_set.release_date
         set_code = current_set.code.lower()
 
@@ -129,7 +109,7 @@ if __name__ == "__main__":
         with open(tex_output, 'w') as temp_file:
             temp_file.write(rendered_template)
 
-        process = subprocess.Popen([latex_command,  tex_output], stdout=subprocess.PIPE)
+        process = subprocess.Popen([latex_command, tex_output], stdout=subprocess.PIPE)
 
         output, error = process.communicate()
 
