@@ -17,15 +17,15 @@
 \setlength{\headsep}{6pt}
 \setlength{\columnsep}{19pt} % Set the space between columns
 \setlength{\tabcolsep}{13pt}
-
 \newcommand{\fontdir}[1]{/home/gregorysmith/mtg-list-gen/resources/fonts/#1}
+
 \newcommand{\imagedir}[1]{/home/gregorysmith/mtg-list-gen/resources/images/#1}
 
-\font\beleren=\fontdir{beleren-bold_P1.01.ttf} at 16pt \selectfont
-\font\belerensmallcaps=\fontdir{belerensmallcaps-bold.ttf} at 21pt \selectfont
-\font\guildtext=\fontdir{belerensmallcaps-bold.ttf} at 13pt \selectfont
-\font\datefont=\fontdir{MatrixBold.ttf} at 15pt \selectfont
-\font\cardcount=\fontdir{MatrixBold.ttf} at 15pt \selectfont
+\newfontfamily\beleren{\fontdir{beleren-bold_P1.01}}
+\newfontfamily\belerensmallcaps{\fontdir{belerensmallcaps-bold}}
+\newfontfamily\guildtext{\fontdir{belerensmallcaps-bold}}
+\newfontfamily\datefont{\fontdir{MatrixBold}}
+\newfontfamily\cardcount{\fontdir{MatrixBold}}
 
 \newcommand{\graphicheight}{1.6cm}
 \newcommand{\manaicon}[1]{\hspace{-0.45cm}\adjincludegraphics[height=\graphicheight,valign=M]{\imagedir{#1}}}
@@ -36,61 +36,13 @@
 
 \begin{document}
     \renewcommand{\arraystretch}{3}
-    \centering\includegraphics[width = \textwidth]{\imagedir{3ed}}
+    \centering\includegraphics[width = \textwidth]{/home/gregorysmith/mtg-list-gen/resources/images/3ed}
     \begin{center}
-        \centering\makebox[\textwidth]{\datefont{307 cards}\hspace{12pt}\datefont{1994-04-01}}
+        \centering
         \begin{minipage}{1.95\textwidth}
             \vspace{2cm}
             \begin{multicols*}{4}
-                    \begin{tabularx}{1.8\linewidth}{m{2cm} m{1cm}}
-
-                        \iconrow{Black}{50}
-
-                        \iconrow{Blue}{50}
-
-                        \iconrow{Green}{49}
-
-                        \iconrow{Red}{50}
-
-                        \iconrow{White}{50}
-
-                    \end{tabularx}
-                \vfill
-                \columnbreak[5]
-                \begin{tabularx}{\linewidth}{m{3cm} r }
-
-                        \iconrow[Boros]{Boros}{2}
-
-                        \iconrow[Dimir]{Dimir}{2}
-
-                        \iconrow[Golgari]{Golgari}{2}
-
-                        \iconrow[Gruul]{Gruul}{2}
-
-                        \iconrow[Izzet]{Izzet}{2}
-
-                        \iconrow[Orzhsov]{Orzhsov}{2}
-
-                        \iconrow[Rekdos]{Rekdos}{3}
-
-                        \iconrow[Selesnya]{Selesnya}{2}
-
-                        \iconrow[Simic]{Simic}{2}
-
-                        \iconrow[Zorius]{Zorius}{2}
-
-                \end{tabularx}
-                \vfill
-                \columnbreak[5]
-                \begin{tabularx}{\linewidth}{m{4cm} X }
-
-                        \rarityrow{common}{91}
-
-                        \rarityrow{rare}{122}
-
-                        \rarityrow{uncommon}{96}
-
-                \end{tabularx}
+                TEST
             \end{multicols*}
         \end{minipage}
     \end{center}

@@ -1,0 +1,146 @@
+{
+  "mana": {
+    "baseColorNames": [
+      "Black",
+      "Blue",
+      "Green",
+      "Red",
+      "White"
+    ],
+    "baseColors": [
+      "b",
+      "c",
+      "g",
+      "r",
+      "u",
+      "w"
+    ],
+    "combos": [
+      {
+        "colors": "b",
+        "name": "Black"
+      },
+      {
+        "colors": "u",
+        "name": "Blue"
+      },
+      {
+        "colors": "r",
+        "name": "Red"
+      },
+      {
+        "colors": "g",
+        "name": "Green"
+      },
+      {
+        "colors": "w",
+        "name": "White"
+      },
+      {
+        "colors": "b,g",
+        "name": "Golgari"
+      },
+      {
+        "colors": "r,u",
+        "name": "Izzet"
+      },
+      {
+        "colors": "b,r",
+        "name": "Rakdos"
+      },
+      {
+        "colors": "b,u",
+        "name": "Dimir"
+      },
+      {
+        "colors": "b,w",
+        "name": "Orzhsov"
+      },
+      {
+        "colors": "g,r",
+        "name": "Gruul"
+      },
+      {
+        "colors": "g,u",
+        "name": "Simic"
+      },
+      {
+        "colors": "g,w",
+        "name": "Selesnya"
+      },
+      {
+        "colors": "r,w",
+        "name": "Boros"
+      },
+      {
+        "colors": "u,w",
+        "name": "Azorius"
+      },
+      {
+        "colors": "b,g,w",
+        "name": "Abzan"
+      },
+      {
+        "colors": "g,u,w",
+        "name": "Bant"
+      },
+      {
+        "colors": "b,u,w",
+        "name": "Esper"
+      },
+      {
+        "colors": "b,r,u",
+        "name": "Grixis"
+      },
+      {
+        "colors": "r,u,w",
+        "name": "Jeskai"
+      },
+      {
+        "colors": "b,g,r",
+        "name": "Jund"
+      },
+      {
+        "colors": "b,r,w",
+        "name": "Mardu"
+      },
+      {
+        "colors": "g,r,w",
+        "name": "Naya"
+      },
+      {
+        "colors": "b,g,u",
+        "name": "Sultai"
+      },
+      {
+        "colors": "g,r,u",
+        "name": "Temur"
+      },
+      {
+        "colors": "b,g,r,u",
+        "name": "Glint"
+      },
+      {
+        "colors": "b,g,w,r",
+        "name": "Dune"
+      },
+      {
+        "colors": "g,u,w,r",
+        "name": "Ink"
+      },
+      {
+        "colors": "b,r,u,w",
+        "name": "Yore"
+      },
+      {
+        "colors": "b,g,u,w",
+        "name": "Witch"
+      }
+    ]
+  },
+  "setIconImage": {
+    "text_color": "#543800",
+    "title_stroke_color": "#1F1300",
+    "icon_color": "#E6F7FF"
+  }
+}

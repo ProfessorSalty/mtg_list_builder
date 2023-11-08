@@ -1,8 +1,8 @@
 from typing import List
 
 
-class ColorDataResource:
-    __combos: List[tuple]
+class ManaConfigResource:
+    __combos: List[tuple[str, str]]
     __base_color_names: List[str]
     __base_colors: List[str]
 
@@ -20,5 +20,5 @@ class ColorDataResource:
 
     def __init__(self, color_data):
         self.__combos = color_data['combos']
-        self.__base_colors = color_data['base_colors']
-        self.__base_color_names = color_data['base_color_name']
+        self.__base_colors = color_data['baseColors']
+        self.__base_color_names = color_data['baseColorNames']

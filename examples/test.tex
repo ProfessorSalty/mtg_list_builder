@@ -1,0 +1,51 @@
+%! Author = gregorysmith
+%! Date = 7/2/23
+
+% Preamble
+\documentclass{memoir}
+\usepackage[a5paper]{geometry}
+\geometry{top=5cm,bottom=2cm,left=2cm,right=2cm}
+
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{adjustbox}
+\usepackage{newtxtext,newtxmath}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{currfile}
+\usepackage{luacode}
+
+\pagenumbering{gobble}
+
+\setlength{\voffset}{1.75in}
+\setlength{\headsep}{6pt}
+\setlength{\columnsep}{19pt} % Set the space between columns
+\setlength{\tabcolsep}{13pt}
+
+% Document
+\begin{document}
+    TEST
+
+    \directlua{
+      % Load the lfs module
+      require("lfs")
+
+      % Retrieve the current directory path
+      local currentDir = lfs.currentdir()
+
+      % Print the current directory path
+      tex.print("Current directory: " .. currentDir)
+
+    local fontFile = "/home/gregorysmith/mtg-list-gen/resources/fonts/belerensmallcaps-bold.ttf"
+    local fileExists = lfs.attributes(fontFile, "mode") == "file"
+if fileExists then
+  tex.print("File exists!")
+else
+  tex.print("File does not exist.")
+end
+
+}
+
+\end{document}

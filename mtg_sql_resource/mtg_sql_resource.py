@@ -1,4 +1,7 @@
-from mtg_sql_resource import Set, Card
+from typing import List
+
+from .models import Set, Card
+from .enums import CardRarity
 from mtg_sql_resource.db_connector import DB_Connector
 
 
@@ -29,8 +32,12 @@ class MTGSQLResource:
 
     def get_set(self, set_id: str):
         with self.db as card_db:
-            set_data = card_db.get_set(set_id)
+            set_data = card_db.get_set(set_id.upper())
             new_set = Set(set_data)
             set_cards = [{**vars(Card(card))} for card in card_db.get_cards_in_set(new_set.code)]
             new_set.cards = set_cards
             return new_set
+
+    def get_cards_by_rarity(self, set_name: str, desired_rarities: list[CardRarity]):
+        with self.db as card_db:
+            return [card['name'] for card in card_db.get_set_cards_by_rarity(set_name, desired_rarities)]

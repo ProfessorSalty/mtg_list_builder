@@ -1,6 +1,6 @@
 mysql/data
 mysql/db_files/dump.sql
-resources/images/dest/
+resources/images
 resources/icons/
 resources/fonts/
 resources/tmp/

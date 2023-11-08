@@ -10,6 +10,7 @@
 \usepackage{tabularx}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{svg}
 
 \pagenumbering{gobble}
 
@@ -18,14 +19,16 @@
 \setlength{\columnsep}{18pt} % Set the space between columns
 \setlength{\tabcolsep}{12pt}
 
-\font\beleren[/home/gregorysmith/mtg-list-gen/resources/fonts/beleren-bold_P1.01.ttf]
-\font\belerensmallcaps[/home/gregorysmith/mtg-list-gen/resources/fonts/belerensmallcaps-bold.ttf]
-\font\guildtext[/home/gregorysmith/mtg-list-gen/resources/fonts/belerensmallcaps-bold.ttf]
-\font\datefont[/home/gregorysmith/mtg-list-gen/resources/fonts/MatrixBold.ttf]
-\font\cardcount[/home/gregorysmith/mtg-list-gen/resources/fonts/MatrixBold.ttf]
+\font\beleren[../resources/fonts/beleren-bold_P1.01.ttf]
+\font\belerensmallcaps[../resources/fonts/belerensmallcaps-bold.ttf]
+\font\guildtext[../resources/fonts/belerensmallcaps-bold.ttf]
+\font\datefont[../resources/fonts/MatrixBold.ttf]
+\font\cardcount[../resources/fonts/MatrixBold.ttf]
+
+\DeclareGraphicsExtensions{.svg, .SVG, .png, .PNG}
 
 \newcommand{\graphicheight}{0.6cm}
-\newcommand{\manaicon}[1]{\hspace{-0.45cm}\adjincludegraphics[height=\graphicheight,valign=M]{/home/gregorysmith/mtg-list-gen/resources/icons/#1}}
+\newcommand{\manaicon}[1]{\hspace{-0.45cm}\adjincludegraphics[height=\graphicheight,valign=M]{/home/gregorysmith/mtg-list-gen/resources/images/#1}}
 \newcommand{\iconrow}[2]{\manaicon{#1} & \adjustbox{valign=M}{\belerensmallcaps{#2}} \\}
 \newcommand{\rarityrow}[2]{\beleren{#1} & \beleren{#2} \\}
 
@@ -33,24 +36,24 @@
 
 \begin{document}
     \renewcommand{\arraystretch}{2}
-    \centering\includegraphics[width = \textwidth]{/home/gregorysmith/mtg-list-gen/resources/images/3ed}
+    \centering\includegraphics[width = \textwidth]{../resources/images/3ed}
     \begin{center}
         \centering\makebox[\textwidth]{\datefont{237 cards}\hspace{12pt}\datefont{April 4th, 1994}}
         \begin{minipage}{0.95\textwidth}
             \vspace{1cm}
             \begin{multicols*}{3}
-                    \begin{tabularx}{0.8\linewidth}{m{2cm} m{1cm}}
-                        \iconrow{b}{237}
-                        \iconrow{u}{237}
-                        \iconrow{g}{237}
-                        \iconrow{r}{237}
-                        \iconrow{w}{237}
-                        \iconrow{c}{237}
-                    \end{tabularx}
+                \begin{tabularx}{\linewidth}{m{2cm} m{1cm}}
+                    \iconrow{b}{237}
+                    \iconrow{u}{237}
+                    \iconrow{g}{237}
+                    \iconrow{r}{237}
+                    \iconrow{w}{237}
+                    \iconrow{c}{237}
+                \end{tabularx}
                 \vfill
                 \columnbreak[4]
                 \begin{tabularx}{\linewidth}{m{2cm} r }
-                    \manaicon{Grixis} & \adjustbox{valign=M}{\belerensmallcaps{237}} \\
+                    \manaicon{grixis} & \adjustbox{valign=M}{\belerensmallcaps{237}} \\
                 \end{tabularx}
                 \vfill
                 \columnbreak[4]
